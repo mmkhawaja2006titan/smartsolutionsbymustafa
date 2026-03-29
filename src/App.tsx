@@ -59,10 +59,10 @@ const TaskItem: React.FC<TaskItemProps> = ({
       <div className="flex items-center gap-3 py-2 px-3 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
         <button 
           onClick={() => toggleTask(task.id)}
-          className="text-gray-400 hover:text-blue-500 transition-colors"
+          className="text-gray-400 hover:text-red-600 transition-colors"
         >
           {task.completed ? (
-            <CheckCircle2 className="w-5 h-5 text-blue-500" />
+            <CheckCircle2 className="w-5 h-5 text-red-600" />
           ) : (
             <Circle className="w-5 h-5" />
           )}
@@ -73,7 +73,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
             {task.text}
           </span>
           {task.deadline && (
-            <div className="flex items-center gap-1 text-[10px] text-blue-500 font-semibold uppercase tracking-wider mt-0.5">
+            <div className="flex items-center gap-1 text-[10px] text-red-600 font-semibold uppercase tracking-wider mt-0.5">
               <Clock className="w-3 h-3" />
               {new Date(task.deadline).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
             </div>
@@ -83,7 +83,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button 
             onClick={() => setShowInput(!showInput)}
-            className="p-1.5 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-all"
+            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
             title="Add Subtask"
           >
             <Plus className="w-4 h-4" />
@@ -120,11 +120,11 @@ const TaskItem: React.FC<TaskItemProps> = ({
               placeholder="What's the subtask?"
               value={subtaskText}
               onChange={(e) => setSubtaskText(e.target.value)}
-              className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition-all"
             />
             <button 
               type="submit"
-              className="bg-blue-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
+              className="bg-[#800000] text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-red-900 transition-colors"
             >
               Add
             </button>
@@ -190,13 +190,13 @@ function CalendarView({ tasks }: { tasks: TaskType[] }) {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
           >
-            <div className="text-xs font-bold text-blue-500 uppercase tracking-widest mb-3">
+            <div className="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">
               {new Date(date).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
             </div>
             <ul className="space-y-2">
               {items.map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
                   {item}
                 </li>
               ))}
@@ -211,17 +211,26 @@ function CalendarView({ tasks }: { tasks: TaskType[] }) {
 // --- Main App Component ---
 export default function App() {
   const [tasks, setTasks] = useState<TaskType[]>(() => {
-    const saved = localStorage.getItem("checklist_tasks");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("checklist_tasks");
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error("Failed to load tasks", e);
+      return [];
+    }
   });
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBtn, setShowInstallBtn] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
 
   // Persistence Logic
   useEffect(() => {
     localStorage.setItem("checklist_tasks", JSON.stringify(tasks));
+    setIsSaved(true);
+    const timer = setTimeout(() => setIsSaved(false), 2000);
+    return () => clearTimeout(timer);
   }, [tasks]);
 
   // PWA Install Logic
@@ -341,7 +350,7 @@ export default function App() {
               <motion.h1 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="text-4xl font-bold tracking-tight text-gray-900"
+                className="text-4xl font-bold tracking-tight text-[#800000]"
               >
                 Checklist
               </motion.h1>
@@ -350,12 +359,24 @@ export default function App() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   onClick={handleInstall}
-                  className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-blue-100 transition-all flex items-center gap-1.5"
+                  className="bg-red-50 text-red-700 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-red-100 transition-all flex items-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Install App
                 </motion.button>
               )}
+              <AnimatePresence>
+                {isSaved && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="text-[10px] font-bold text-green-600 uppercase tracking-widest"
+                  >
+                    Saved
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="text-right">
               <div className="text-3xl font-light text-gray-400">
@@ -371,7 +392,7 @@ export default function App() {
             <motion.div 
               initial={{ width: 0 }}
               animate={{ width: `${stats.percent}%` }}
-              className="h-full bg-blue-500 rounded-full"
+              className="h-full bg-[#800000] rounded-full"
             />
           </div>
         </header>
@@ -389,7 +410,7 @@ export default function App() {
                 placeholder="What needs to be done?"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-gray-400"
+                className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-red-500/20 transition-all placeholder:text-gray-400"
               />
             </div>
             <div className="relative">
@@ -397,13 +418,13 @@ export default function App() {
                 type="date"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 transition-all text-gray-600"
+                className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-red-500/20 transition-all text-gray-600"
               />
             </div>
             <button 
               type="submit"
               disabled={!text.trim()}
-              className="bg-gray-900 text-white px-8 py-4 rounded-2xl text-sm font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-gray-900/10 active:scale-95"
+              className="bg-[#800000] text-white px-8 py-4 rounded-2xl text-sm font-semibold hover:bg-red-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-900/10 active:scale-95"
             >
               Add Task
             </button>
