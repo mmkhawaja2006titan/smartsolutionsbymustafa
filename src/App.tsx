@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { 
   CheckCircle2, 
   Circle, 
@@ -210,14 +210,22 @@ function CalendarView({ tasks }: { tasks: TaskType[] }) {
 
 // --- Main App Component ---
 export default function App() {
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [tasks, setTasks] = useState<TaskType[]>(() => {
+    const saved = localStorage.getItem("checklist_tasks");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBtn, setShowInstallBtn] = useState(false);
 
+  // Persistence Logic
+  useEffect(() => {
+    localStorage.setItem("checklist_tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   // PWA Install Logic
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
