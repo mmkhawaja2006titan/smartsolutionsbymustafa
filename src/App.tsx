@@ -213,6 +213,29 @@ export default function App() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBtn, setShowInstallBtn] = useState(false);
+
+  // PWA Install Logic
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBtn(true);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setShowInstallBtn(false);
+    }
+    setDeferredPrompt(null);
+  };
 
   const createTask = (text: string, deadline: string): TaskType => ({
     id: Math.random().toString(36).substr(2, 9),
@@ -306,13 +329,26 @@ export default function App() {
         {/* Header Section */}
         <header className="mb-12 space-y-4">
           <div className="flex items-center justify-between">
-            <motion.h1 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-4xl font-bold tracking-tight text-gray-900"
-            >
-              Checklist
-            </motion.h1>
+            <div className="flex items-center gap-4">
+              <motion.h1 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="text-4xl font-bold tracking-tight text-gray-900"
+              >
+                Checklist
+              </motion.h1>
+              {showInstallBtn && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  onClick={handleInstall}
+                  className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-blue-100 transition-all flex items-center gap-1.5"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Install App
+                </motion.button>
+              )}
+            </div>
             <div className="text-right">
               <div className="text-3xl font-light text-gray-400">
                 {stats.percent}<span className="text-sm font-medium ml-1">%</span>
