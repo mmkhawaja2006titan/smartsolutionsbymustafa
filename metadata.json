@@ -1,0 +1,5 @@
+{
+  "name": "Checklist & Calendar App",
+  "description": "A powerful checklist application with recursive subtasks and a calendar view to track deadlines.",
+  "requestFramePermissions": []
+}
