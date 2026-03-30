@@ -1,5 +1,5 @@
 {
-  "name": "Checklist & Calendar App",
-  "description": "A powerful checklist application with recursive subtasks and a calendar view to track deadlines.",
+  "name": "S.Plan: D2D & Study Planner",
+  "description": "A comprehensive planning tool featuring D2D (Daily Checklist) and S.Sche (Customized Study Planner with hourly scheduling).",
   "requestFramePermissions": []
 }

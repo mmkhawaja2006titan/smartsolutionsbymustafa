@@ -7,12 +7,16 @@ import {
   ChevronRight, 
   ChevronDown, 
   Trash2,
-  Clock
+  Clock,
+  LayoutDashboard,
+  CalendarDays
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { StudyPlanner } from "./StudyPlanner";
 
 // --- Types ---
 type Priority = "immediate" | "urgent" | "can-wait";
+type View = "D2D" | "S.Sche";
 
 interface TaskType {
   id: string;
@@ -399,6 +403,7 @@ export default function App() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBtn, setShowInstallBtn] = useState(false);
   const [isSaved, setIsSaved] = useState(true);
+  const [activeView, setActiveView] = useState<View>("D2D");
 
   // Persistence Logic
   useEffect(() => {
@@ -550,197 +555,249 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFCFB] text-gray-900 font-sans selection:bg-red-100">
-      <div className="max-w-4xl mx-auto px-6 py-12 md:py-24">
-        {/* Header Section */}
-        <header className="mb-16 space-y-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <motion.div 
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="bg-[#800000] p-3 rounded-2xl shadow-lg shadow-red-900/20"
-                >
-                  <CheckCircle2 className="w-8 h-8 text-white" />
-                </motion.div>
-                <motion.h1 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-5xl font-black tracking-tighter text-[#800000]"
-                >
-                  Checklist
-                </motion.h1>
-              </div>
-              <div className="flex items-center gap-3">
-                {showInstallBtn && (
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    onClick={handleInstall}
-                    className="bg-red-50 text-[#800000] px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all flex items-center gap-2 border border-red-100"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    Install App
-                  </motion.button>
-                )}
-                <AnimatePresence>
-                  {isSaved && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-lg text-[10px] font-black text-green-700 uppercase tracking-widest border border-green-100"
+      {/* Navigation Menu */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="bg-[#800000] p-1.5 rounded-lg">
+              <CheckCircle2 className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-black tracking-tighter text-[#800000]">S.Plan</span>
+          </div>
+          <div className="flex bg-gray-50 p-1 rounded-xl border border-gray-100">
+            <button 
+              onClick={() => setActiveView("D2D")}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
+                activeView === 'D2D' ? 'bg-white text-[#800000] shadow-sm' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <LayoutDashboard className="w-4 h-4" />
+              D2D
+            </button>
+            <button 
+              onClick={() => setActiveView("S.Sche")}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
+                activeView === 'S.Sche' ? 'bg-white text-[#800000] shadow-sm' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <CalendarDays className="w-4 h-4" />
+              S.Sche
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-4xl mx-auto px-6 py-24 md:py-32">
+        <AnimatePresence mode="wait">
+          {activeView === "D2D" ? (
+            <motion.div 
+              key="d2d"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+            >
+              {/* Header Section */}
+              <header className="mb-16 space-y-8">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <motion.div 
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-[#800000] p-3 rounded-2xl shadow-lg shadow-red-900/20"
+                      >
+                        <CheckCircle2 className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <motion.h1 
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="text-5xl font-black tracking-tighter text-[#800000]"
+                      >
+                        D2D
+                      </motion.h1>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      {showInstallBtn && (
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          onClick={handleInstall}
+                          className="bg-red-50 text-[#800000] px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all flex items-center gap-2 border border-red-100"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          Install App
+                        </motion.button>
+                      )}
+                      <AnimatePresence>
+                        {isSaved && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-lg text-[10px] font-black text-green-700 uppercase tracking-widest border border-green-100"
+                          >
+                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                            Synced
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-8">
+                    {nextDeadlineTask && (
+                      <div className="hidden sm:block text-right border-r border-gray-100 pr-8">
+                        <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Next Deadline</div>
+                        <div className="text-sm font-black text-red-600 truncate max-w-[150px]">{nextDeadlineTask.text}</div>
+                        <div className="text-[11px] font-bold text-gray-500 mt-0.5">
+                          {new Date(nextDeadlineTask.deadline).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                        </div>
+                      </div>
+                    )}
+                    <div className="text-right">
+                      <div className="text-5xl font-black text-gray-900 tracking-tighter leading-none">
+                        {stats.percent}<span className="text-xl font-bold ml-1 text-gray-300">%</span>
+                      </div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mt-2">
+                        Overall Progress
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden p-0.5 border border-gray-50">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${stats.percent}%` }}
+                    className="h-full bg-gradient-to-r from-[#800000] to-red-600 rounded-full shadow-sm"
+                  />
+                </div>
+              </header>
+
+              {/* Add Task Form */}
+              <motion.form 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                onSubmit={addTask}
+                className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100 mb-12 space-y-6 relative overflow-hidden"
+              >
+                {/* Decorative background element */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -mr-16 -mt-16 opacity-50" />
+                
+                <div className="space-y-6 relative">
+                  <div className="flex flex-col gap-6">
+                    <div className="flex-1">
+                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Name</label>
+                      <input
+                        placeholder="What needs to be done?"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-bold text-gray-800"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Description</label>
+                      <textarea
+                        placeholder="Add more details about this task..."
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-medium text-gray-700 min-h-[100px] resize-none"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="relative">
+                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Set Deadline</label>
+                      <div className="relative">
+                        <CalendarIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-red-300" />
+                        <input
+                          type="date"
+                          value={deadline}
+                          onChange={(e) => setDeadline(e.target.value)}
+                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl pl-14 pr-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none"
+                        />
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Priority Level</label>
+                      <select
+                        value={priority}
+                        onChange={(e) => setPriority(e.target.value as Priority)}
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none cursor-pointer"
+                      >
+                        <option value="immediate">1. Immediate Response</option>
+                        <option value="urgent">2. Urgent</option>
+                        <option value="can-wait">3. Can Wait</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <button 
+                      type="submit"
+                      disabled={!text.trim()}
+                      className="w-full bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl shadow-red-900/20 active:scale-[0.98] flex items-center justify-center gap-3"
                     >
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                      Synced
+                      <Plus className="w-6 h-6" />
+                      Create Task
+                    </button>
+                  </div>
+                </div>
+              </motion.form>
+
+              {/* Task List */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between px-2 mb-4">
+                  <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Active Tasks</h3>
+                  <span className="text-[10px] font-bold text-red-700 bg-red-50 px-2 py-1 rounded-md">{tasks.length} Total</span>
+                </div>
+                <AnimatePresence mode="popLayout">
+                  {tasks.length === 0 ? (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-center py-24 bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
+                    >
+                      <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Plus className="w-8 h-8 text-red-200" />
+                      </div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Your list is empty</h4>
+                      <p className="text-gray-400 text-sm font-medium">Add a task above to get started</p>
                     </motion.div>
+                  ) : (
+                    tasks.map((task) => (
+                      <TaskItem
+                        key={task.id}
+                        task={task}
+                        toggleTask={toggleTask}
+                        addSubtask={addSubtask}
+                        deleteTask={deleteTask}
+                        toggleExpand={toggleExpand}
+                        updatePriority={updatePriority}
+                      />
+                    ))
                   )}
                 </AnimatePresence>
               </div>
-            </div>
 
-            <div className="flex items-center gap-8">
-              {nextDeadlineTask && (
-                <div className="hidden sm:block text-right border-r border-gray-100 pr-8">
-                  <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Next Deadline</div>
-                  <div className="text-sm font-black text-red-600 truncate max-w-[150px]">{nextDeadlineTask.text}</div>
-                  <div className="text-[11px] font-bold text-gray-500 mt-0.5">
-                    {new Date(nextDeadlineTask.deadline).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                  </div>
-                </div>
-              )}
-              <div className="text-right">
-                <div className="text-5xl font-black text-gray-900 tracking-tighter leading-none">
-                  {stats.percent}<span className="text-xl font-bold ml-1 text-gray-300">%</span>
-                </div>
-                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mt-2">
-                  Overall Progress
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden p-0.5 border border-gray-50">
+              {/* Calendar Section */}
+              <CalendarView tasks={tasks} onDateSelect={(date) => {
+                setDeadline(date);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} />
+            </motion.div>
+          ) : (
             <motion.div 
-              initial={{ width: 0 }}
-              animate={{ width: `${stats.percent}%` }}
-              className="h-full bg-gradient-to-r from-[#800000] to-red-600 rounded-full shadow-sm"
-            />
-          </div>
-        </header>
-
-        {/* Add Task Form */}
-        <motion.form 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          onSubmit={addTask}
-          className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100 mb-12 space-y-6 relative overflow-hidden"
-        >
-          {/* Decorative background element */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -mr-16 -mt-16 opacity-50" />
-          
-          <div className="space-y-6 relative">
-            <div className="flex flex-col gap-6">
-              <div className="flex-1">
-                <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Name</label>
-                <input
-                  placeholder="What needs to be done?"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-bold text-gray-800"
-                />
-              </div>
-              <div className="flex-1">
-                <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Description</label>
-                <textarea
-                  placeholder="Add more details about this task..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-medium text-gray-700 min-h-[100px] resize-none"
-                />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative">
-                <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Set Deadline</label>
-                <div className="relative">
-                  <CalendarIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-red-300" />
-                  <input
-                    type="date"
-                    value={deadline}
-                    onChange={(e) => setDeadline(e.target.value)}
-                    className="w-full bg-gray-50 border-2 border-transparent rounded-2xl pl-14 pr-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none"
-                  />
-                </div>
-              </div>
-              <div className="relative">
-                <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Priority Level</label>
-                <select
-                  value={priority}
-                  onChange={(e) => setPriority(e.target.value as Priority)}
-                  className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none cursor-pointer"
-                >
-                  <option value="immediate">1. Immediate Response</option>
-                  <option value="urgent">2. Urgent</option>
-                  <option value="can-wait">3. Can Wait</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <button 
-                type="submit"
-                disabled={!text.trim()}
-                className="w-full bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl shadow-red-900/20 active:scale-[0.98] flex items-center justify-center gap-3"
-              >
-                <Plus className="w-6 h-6" />
-                Create Task
-              </button>
-            </div>
-          </div>
-        </motion.form>
-
-        {/* Task List */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between px-2 mb-4">
-            <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Active Tasks</h3>
-            <span className="text-[10px] font-bold text-red-700 bg-red-50 px-2 py-1 rounded-md">{tasks.length} Total</span>
-          </div>
-          <AnimatePresence mode="popLayout">
-            {tasks.length === 0 ? (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-24 bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
-              >
-                <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Plus className="w-8 h-8 text-red-200" />
-                </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-1">Your list is empty</h4>
-                <p className="text-gray-400 text-sm font-medium">Add a task above to get started</p>
-              </motion.div>
-            ) : (
-              tasks.map((task) => (
-                <TaskItem
-                  key={task.id}
-                  task={task}
-                  toggleTask={toggleTask}
-                  addSubtask={addSubtask}
-                  deleteTask={deleteTask}
-                  toggleExpand={toggleExpand}
-                  updatePriority={updatePriority}
-                />
-              ))
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Calendar Section */}
-        <CalendarView tasks={tasks} onDateSelect={(date) => {
-          setDeadline(date);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }} />
+              key="ssche"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <StudyPlanner />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
