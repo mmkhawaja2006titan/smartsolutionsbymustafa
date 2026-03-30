@@ -13,18 +13,18 @@ export default defineConfig(({mode}) => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'Checklist & Calendar App',
-          short_name: 'Checklist',
-          description: 'A powerful checklist application with recursive subtasks and a calendar view.',
+          name: 'S.Plan: D2D & Study Planner',
+          short_name: 'S.Plan',
+          description: 'A comprehensive planning tool featuring D2D (Daily Checklist) and S.Sche (Customized Study Planner).',
           theme_color: '#ffffff',
           icons: [
             {
-              src: 'https://picsum.photos/seed/checklist/192/192',
+              src: 'https://img.icons8.com/fluency/192/polar-bear.png',
               sizes: '192x192',
               type: 'image/png'
             },
             {
-              src: 'https://picsum.photos/seed/checklist/512/512',
+              src: 'https://img.icons8.com/fluency/512/polar-bear.png',
               sizes: '512x512',
               type: 'image/png'
             }
