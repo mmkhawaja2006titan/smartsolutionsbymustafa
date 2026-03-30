@@ -73,7 +73,7 @@ const DIFFICULTY_WEIGHTS: Record<Difficulty, number> = {
 
 // --- Helper Components ---
 const InputLabel = ({ children }: { children: React.ReactNode }) => (
-  <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">
+  <label className="block text-[11px] font-black text-neon-blue uppercase tracking-[0.2em] mb-2.5 ml-1">
     {children}
   </label>
 );
@@ -454,15 +454,15 @@ export const StudyPlanner: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100"
+            className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border"
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-red-50 p-3 rounded-2xl">
-                <CalendarIcon className="w-8 h-8 text-[#800000]" />
+              <div className="bg-dark-bg p-3 rounded-2xl border border-neon-blue/20">
+                <CalendarIcon className="w-8 h-8 text-neon-blue" />
               </div>
               <div>
-                <h2 className="text-3xl font-black text-gray-900 tracking-tight">Set Date Range</h2>
-                <p className="text-sm font-bold text-gray-400">When does your routine start and end?</p>
+                <h2 className="text-3xl font-black text-white tracking-tight neon-glow-blue">Set Date Range</h2>
+                <p className="text-sm font-bold text-gray-500">When does your routine start and end?</p>
               </div>
             </div>
 
@@ -473,7 +473,7 @@ export const StudyPlanner: React.FC = () => {
                   type="date" 
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                  className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                 />
               </div>
               <div>
@@ -482,7 +482,7 @@ export const StudyPlanner: React.FC = () => {
                   type="date" 
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                  className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                 />
               </div>
             </div>
@@ -490,7 +490,7 @@ export const StudyPlanner: React.FC = () => {
             <div className="flex gap-4">
               <button 
                 onClick={() => setStep(2)}
-                className="flex-1 bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 transition-all flex items-center justify-center gap-3 shadow-xl shadow-red-900/20"
+                className="flex-1 bg-neon-blue text-black px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-neon-blue/80 transition-all flex items-center justify-center gap-3 shadow-xl shadow-neon-blue/20"
               >
                 Next: Study Days
                 <ChevronRight className="w-6 h-6" />
@@ -505,15 +505,15 @@ export const StudyPlanner: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100"
+            className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border"
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-red-50 p-3 rounded-2xl">
-                <CalendarIcon className="w-8 h-8 text-[#800000]" />
+              <div className="bg-dark-bg p-3 rounded-2xl border border-neon-blue/20">
+                <CalendarIcon className="w-8 h-8 text-neon-blue" />
               </div>
               <div>
-                <h2 className="text-3xl font-black text-gray-900 tracking-tight">Study Days</h2>
-                <p className="text-sm font-bold text-gray-400">Which days of the week do you want to study?</p>
+                <h2 className="text-3xl font-black text-white tracking-tight neon-glow-blue">Study Days</h2>
+                <p className="text-sm font-bold text-gray-500">Which days of the week do you want to study?</p>
               </div>
             </div>
 
@@ -521,7 +521,7 @@ export const StudyPlanner: React.FC = () => {
               <button 
                 onClick={() => setStudyDaysMode("all")}
                 className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center gap-3 ${
-                  studyDaysMode === 'all' ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                  studyDaysMode === 'all' ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                 }`}
               >
                 <Sun className="w-8 h-8" />
@@ -530,7 +530,7 @@ export const StudyPlanner: React.FC = () => {
               <button 
                 onClick={() => setStudyDaysMode("weekdays")}
                 className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center gap-3 ${
-                  studyDaysMode === 'weekdays' ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                  studyDaysMode === 'weekdays' ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                 }`}
               >
                 <Clock className="w-8 h-8" />
@@ -539,7 +539,7 @@ export const StudyPlanner: React.FC = () => {
               <button 
                 onClick={() => setStudyDaysMode("custom")}
                 className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center gap-3 ${
-                  studyDaysMode === 'custom' ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                  studyDaysMode === 'custom' ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                 }`}
               >
                 <Edit2 className="w-8 h-8" />
@@ -548,7 +548,7 @@ export const StudyPlanner: React.FC = () => {
             </div>
 
             {studyDaysMode === "custom" && (
-              <div className="mb-8 p-6 bg-gray-50 rounded-3xl border border-gray-100">
+              <div className="mb-8 p-6 bg-dark-bg rounded-3xl border border-dark-border">
                 <div className="flex items-center justify-between mb-4">
                   <InputLabel>Select Study Days</InputLabel>
                   <div className="flex gap-2">
@@ -557,14 +557,14 @@ export const StudyPlanner: React.FC = () => {
                         const allDays = eachDayOfInterval({ start: parseISO(startDate), end: parseISO(endDate) }).map(d => format(d, "yyyy-MM-dd"));
                         setSelectedStudyDays(allDays);
                       }}
-                      className="text-[10px] font-black text-red-700 uppercase tracking-widest hover:underline"
+                      className="text-[10px] font-black text-neon-blue uppercase tracking-widest hover:underline"
                     >
                       Select All
                     </button>
-                    <span className="text-gray-300">|</span>
+                    <span className="text-dark-border">|</span>
                     <button 
                       onClick={() => setSelectedStudyDays([])}
-                      className="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:underline"
+                      className="text-[10px] font-black text-gray-500 uppercase tracking-widest hover:underline"
                     >
                       Clear All
                     </button>
@@ -586,8 +586,8 @@ export const StudyPlanner: React.FC = () => {
                         }}
                         className={`p-3 rounded-xl text-[10px] font-black transition-all border ${
                           isSelected 
-                            ? 'bg-[#800000] text-white border-[#800000]' 
-                            : 'bg-white text-gray-400 border-gray-100 hover:border-red-200'
+                            ? 'bg-neon-blue text-black border-neon-blue' 
+                            : 'bg-dark-card text-gray-500 border-dark-border hover:border-neon-blue/50'
                         }`}
                       >
                         <div className="uppercase opacity-50">{format(day, "EEE")}</div>
@@ -602,7 +602,7 @@ export const StudyPlanner: React.FC = () => {
             <div className="flex gap-4">
               <button 
                 onClick={() => setStep(1)}
-                className="flex-1 bg-gray-100 text-gray-500 px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-3"
+                className="flex-1 bg-dark-bg text-gray-500 px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-dark-border transition-all flex items-center justify-center gap-3 border border-dark-border"
               >
                 <ChevronLeft className="w-6 h-6" />
                 Back
@@ -610,7 +610,7 @@ export const StudyPlanner: React.FC = () => {
               <button 
                 onClick={() => setStep(3)}
                 disabled={studyDaysMode === "custom" && selectedStudyDays.length === 0}
-                className="flex-[2] bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 disabled:opacity-30 transition-all flex items-center justify-center gap-3 shadow-xl shadow-red-900/20"
+                className="flex-[2] bg-neon-blue text-black px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-neon-blue/80 disabled:opacity-30 transition-all flex items-center justify-center gap-3 shadow-xl shadow-neon-blue/20"
               >
                 Next: Subjects & Preferences
                 <ChevronRight className="w-6 h-6" />
@@ -628,14 +628,14 @@ export const StudyPlanner: React.FC = () => {
             className="space-y-8"
           >
             {/* Subjects Section */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100">
+            <div className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border">
               <div className="flex items-center gap-4 mb-8">
-                <div className="bg-red-50 p-3 rounded-2xl">
-                  <BookOpen className="w-8 h-8 text-[#800000]" />
+                <div className="bg-dark-bg p-3 rounded-2xl border border-neon-blue/20">
+                  <BookOpen className="w-8 h-8 text-neon-blue" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Your Subjects</h2>
-                  <p className="text-sm font-bold text-gray-400">Add subjects and their difficulty</p>
+                  <h2 className="text-3xl font-black text-white tracking-tight neon-glow-blue">Your Subjects</h2>
+                  <p className="text-sm font-bold text-gray-500">Add subjects and their difficulty</p>
                 </div>
               </div>
 
@@ -645,14 +645,14 @@ export const StudyPlanner: React.FC = () => {
                     placeholder="Subject Name (e.g. Math, History)"
                     value={newSubName}
                     onChange={(e) => setNewSubName(e.target.value)}
-                    className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                    className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                   />
                 </div>
                 <div className="md:w-64">
                   <select 
                     value={newSubDiff}
                     onChange={(e) => setNewSubDiff(e.target.value as Difficulty)}
-                    className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 transition-all font-bold appearance-none cursor-pointer"
+                    className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-sm focus:bg-dark-bg focus:border-neon-blue transition-all font-bold appearance-none cursor-pointer text-white"
                   >
                     <option value="Str8t F">Str8t F (Hardest)</option>
                     <option value="maybe F">maybe F</option>
@@ -662,7 +662,7 @@ export const StudyPlanner: React.FC = () => {
                 </div>
                 <button 
                   onClick={addSubject}
-                  className="bg-[#800000] text-white p-4 rounded-2xl hover:bg-red-900 transition-all shadow-lg shadow-red-900/20"
+                  className="bg-neon-blue text-black p-4 rounded-2xl hover:bg-neon-blue/80 transition-all shadow-lg shadow-neon-blue/20"
                 >
                   <Plus className="w-8 h-8" />
                 </button>
@@ -670,19 +670,19 @@ export const StudyPlanner: React.FC = () => {
 
               <div className="space-y-3">
                 {subjects.map(s => (
-                  <div key={s.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                  <div key={s.id} className="flex items-center justify-between p-4 bg-dark-bg rounded-2xl border border-dark-border">
                     <div>
-                      <span className="font-black text-gray-900">{s.name}</span>
+                      <span className="font-black text-white">{s.name}</span>
                       <span className={`ml-3 text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${
-                        s.difficulty === 'Str8t F' ? 'bg-red-100 text-red-700' :
-                        s.difficulty === 'maybe F' ? 'bg-orange-100 text-orange-700' :
-                        s.difficulty === 'passable' ? 'bg-blue-100 text-blue-700' :
-                        'bg-green-100 text-green-700'
+                        s.difficulty === 'Str8t F' ? 'bg-neon-pink/20 text-neon-pink' :
+                        s.difficulty === 'maybe F' ? 'bg-neon-orange/20 text-neon-orange' :
+                        s.difficulty === 'passable' ? 'bg-neon-blue/20 text-neon-blue' :
+                        'bg-neon-green/20 text-neon-green'
                       }`}>
                         {s.difficulty}
                       </span>
                     </div>
-                    <button onClick={() => removeSubject(s.id)} className="text-gray-400 hover:text-red-600 transition-colors">
+                    <button onClick={() => removeSubject(s.id)} className="text-gray-500 hover:text-neon-pink transition-colors">
                       <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
@@ -691,14 +691,14 @@ export const StudyPlanner: React.FC = () => {
             </div>
 
             {/* Preferences Section */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100">
+            <div className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border">
               <div className="flex items-center gap-4 mb-8">
-                <div className="bg-red-50 p-3 rounded-2xl">
-                  <Brain className="w-8 h-8 text-[#800000]" />
+                <div className="bg-dark-bg p-3 rounded-2xl border border-neon-blue/20">
+                  <Brain className="w-8 h-8 text-neon-blue" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Routine Details</h2>
-                  <p className="text-sm font-bold text-gray-400">Customize your study habits</p>
+                  <h2 className="text-3xl font-black text-white tracking-tight neon-glow-blue">Routine Details</h2>
+                  <p className="text-sm font-bold text-gray-500">Customize your study habits</p>
                 </div>
               </div>
 
@@ -710,7 +710,7 @@ export const StudyPlanner: React.FC = () => {
                       type="number" 
                       value={studyHoursPerDay}
                       onChange={(e) => setStudyHoursPerDay(Number(e.target.value))}
-                      className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                      className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                     />
                   </div>
                   <div>
@@ -719,7 +719,7 @@ export const StudyPlanner: React.FC = () => {
                       type="number" 
                       value={sleepHours}
                       onChange={(e) => setSleepHours(Number(e.target.value))}
-                      className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                      className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                     />
                   </div>
                   <div>
@@ -728,7 +728,7 @@ export const StudyPlanner: React.FC = () => {
                       type="time" 
                       value={bedtime}
                       onChange={(e) => setBedtime(e.target.value)}
-                      className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 transition-all font-bold"
+                      className="w-full bg-dark-bg border-2 border-dark-border rounded-2xl px-6 py-4 text-base focus:bg-dark-bg focus:border-neon-blue transition-all font-bold text-white"
                     />
                   </div>
                 </div>
@@ -740,7 +740,7 @@ export const StudyPlanner: React.FC = () => {
                       <button 
                         onClick={() => setPreference("early morning")}
                         className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all ${
-                          preference === 'early morning' ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                          preference === 'early morning' ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                         }`}
                       >
                         <Sun className="w-8 h-8" />
@@ -749,7 +749,7 @@ export const StudyPlanner: React.FC = () => {
                       <button 
                         onClick={() => setPreference("late night")}
                         className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all ${
-                          preference === 'late night' ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                          preference === 'late night' ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                         }`}
                       >
                         <Moon className="w-8 h-8" />
@@ -764,7 +764,7 @@ export const StudyPlanner: React.FC = () => {
                       <button 
                         onClick={() => setNeedsBreaks(true)}
                         className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                          needsBreaks ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                          needsBreaks ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                         }`}
                       >
                         <Coffee className="w-5 h-5" />
@@ -773,7 +773,7 @@ export const StudyPlanner: React.FC = () => {
                       <button 
                         onClick={() => setNeedsBreaks(false)}
                         className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                          !needsBreaks ? 'bg-red-50 border-[#800000] text-[#800000]' : 'bg-gray-50 border-transparent text-gray-400'
+                          !needsBreaks ? 'bg-dark-bg border-neon-blue text-neon-blue' : 'bg-dark-bg border-dark-border text-gray-500'
                         }`}
                       >
                         <CheckCircle2 className="w-5 h-5" />
@@ -787,7 +787,7 @@ export const StudyPlanner: React.FC = () => {
               <div className="flex gap-4 mt-12">
                 <button 
                   onClick={() => setStep(2)}
-                  className="flex-1 bg-gray-100 text-gray-500 px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-3"
+                  className="flex-1 bg-dark-bg text-gray-500 px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-dark-border transition-all flex items-center justify-center gap-3 border border-dark-border"
                 >
                   <ChevronLeft className="w-6 h-6" />
                   Back
@@ -795,7 +795,7 @@ export const StudyPlanner: React.FC = () => {
                 <button 
                   onClick={generatePlan}
                   disabled={subjects.length === 0}
-                  className="flex-[2] bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 disabled:opacity-30 transition-all flex items-center justify-center gap-3 shadow-xl shadow-red-900/20"
+                  className="flex-[2] bg-neon-blue text-black px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-neon-blue/80 disabled:opacity-30 transition-all flex items-center justify-center gap-3 shadow-xl shadow-neon-blue/20"
                 >
                   Generate Plan
                   <Save className="w-6 h-6" />
@@ -813,14 +813,14 @@ export const StudyPlanner: React.FC = () => {
             className="space-y-8"
           >
             {/* Summary & Controls */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <div className="bg-red-50 p-3 rounded-2xl">
-                  <CheckCircle2 className="w-8 h-8 text-[#800000]" />
+                <div className="bg-dark-bg p-3 rounded-2xl border border-neon-green/20">
+                  <CheckCircle2 className="w-8 h-8 text-neon-green" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Your Plan is Ready</h2>
-                  <p className="text-sm font-bold text-gray-400">
+                  <h2 className="text-3xl font-black text-white tracking-tight neon-glow-green">Your Plan is Ready</h2>
+                  <p className="text-sm font-bold text-gray-500">
                     {format(parseISO(plan.startDate), "MMM d")} - {format(parseISO(plan.endDate), "MMM d")}
                   </p>
                 </div>
@@ -828,13 +828,13 @@ export const StudyPlanner: React.FC = () => {
               <div className="flex gap-3">
                 <button 
                   onClick={replan}
-                  className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-[#800000] bg-red-50 hover:bg-red-100 transition-all border border-red-100"
+                  className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-neon-blue bg-dark-bg hover:bg-dark-border transition-all border border-neon-blue/20"
                 >
                   Re-plan
                 </button>
                 <button 
                   onClick={() => setShowResetConfirm(true)}
-                  className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 bg-gray-50 hover:bg-gray-100 transition-all border border-gray-100"
+                  className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-500 bg-dark-bg hover:bg-dark-border transition-all border border-dark-border"
                 >
                   Reset
                 </button>
@@ -842,23 +842,23 @@ export const StudyPlanner: React.FC = () => {
             </div>
 
             {/* Subject Time Allocation */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100">
-              <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6">Time Allocation (Manual Override)</h3>
+            <div className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border">
+              <h3 className="text-xs font-black text-neon-blue uppercase tracking-[0.2em] mb-6">Time Allocation (Manual Override)</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {plan.subjects.map(s => (
-                  <div key={s.id} className="p-5 bg-gray-50 rounded-2xl border border-gray-100 space-y-3">
+                  <div key={s.id} className="p-5 bg-dark-bg rounded-2xl border border-dark-border space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-black text-gray-900">{s.name}</span>
-                      <span className="text-[10px] font-black text-gray-400 uppercase">{s.difficulty}</span>
+                      <span className="font-black text-white">{s.name}</span>
+                      <span className="text-[10px] font-black text-gray-500 uppercase">{s.difficulty}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <input 
                         type="number"
                         value={s.allocatedHours}
                         onChange={(e) => updateSubjectHours(s.id, Number(e.target.value))}
-                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-red-100 focus:border-[#800000] outline-none transition-all"
+                        className="w-full bg-dark-card border border-dark-border rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-neon-blue/20 focus:border-neon-blue outline-none transition-all text-white"
                       />
-                      <span className="text-xs font-bold text-gray-400">hrs</span>
+                      <span className="text-xs font-bold text-gray-500">hrs</span>
                     </div>
                   </div>
                 ))}
@@ -866,8 +866,8 @@ export const StudyPlanner: React.FC = () => {
             </div>
 
             {/* Hourly Calendar View */}
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100 overflow-hidden">
-              <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-8">Detailed Hourly Schedule</h3>
+            <div className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-blue/5 border border-dark-border overflow-hidden">
+              <h3 className="text-xs font-black text-neon-blue uppercase tracking-[0.2em] mb-8">Detailed Hourly Schedule</h3>
               
               <div className="space-y-12">
                 {eachDayOfInterval({ start: parseISO(plan.startDate), end: parseISO(plan.endDate) }).map(day => {
@@ -876,26 +876,26 @@ export const StudyPlanner: React.FC = () => {
 
                   return (
                     <div key={day.toISOString()} className="space-y-4">
-                      <div className="flex items-center justify-between border-b border-gray-50 pb-4">
+                      <div className="flex items-center justify-between border-b border-dark-border pb-4">
                         <div className="flex items-center gap-3">
-                          <div className="bg-[#800000] text-white w-10 h-10 rounded-xl flex items-center justify-center font-black">
+                          <div className="bg-neon-blue text-black w-10 h-10 rounded-xl flex items-center justify-center font-black">
                             {format(day, "d")}
                           </div>
                           <div>
-                            <h4 className="font-black text-gray-900">{format(day, "EEEE")}</h4>
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{format(day, "MMMM yyyy")}</p>
+                            <h4 className="font-black text-white">{format(day, "EEEE")}</h4>
+                            <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{format(day, "MMMM yyyy")}</p>
                           </div>
                         </div>
                         <div className="flex gap-2">
                           <button 
                             onClick={() => addManualSession(day, false)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest text-[#800000] bg-red-50 hover:bg-red-100 transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest text-neon-green bg-dark-bg hover:bg-dark-border transition-all border border-neon-green/20"
                           >
                             <Plus className="w-3 h-3" /> Study
                           </button>
                           <button 
                             onClick={() => addManualSession(day, true)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest text-gray-500 bg-gray-100 hover:bg-gray-200 transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest text-gray-500 bg-dark-bg hover:bg-dark-border transition-all border border-dark-border"
                           >
                             <Plus className="w-3 h-3" /> Break
                           </button>
@@ -908,37 +908,37 @@ export const StudyPlanner: React.FC = () => {
                             key={session.id}
                             className={`flex items-center gap-4 p-4 rounded-2xl border transition-all group ${
                               session.isBreak 
-                                ? 'bg-gray-50 border-gray-100 text-gray-400' 
-                                : 'bg-white border-red-50 shadow-sm hover:shadow-md hover:border-red-200'
+                                ? 'bg-dark-bg border-dark-border text-gray-500' 
+                                : 'bg-dark-card border-dark-border shadow-sm hover:shadow-md hover:border-neon-blue/50'
                             }`}
                           >
-                            <div className="w-24 flex-shrink-0 text-[11px] font-black text-gray-400 uppercase tracking-tighter">
+                            <div className="w-24 flex-shrink-0 text-[11px] font-black text-gray-500 uppercase tracking-tighter">
                               {format(session.startTime, "h:mm a")}
                             </div>
                             <div className="flex-1 flex items-center gap-3">
                               {session.isBreak ? (
                                 <Coffee className="w-4 h-4" />
                               ) : (
-                                <BookOpen className="w-4 h-4 text-[#800000]" />
+                                <BookOpen className="w-4 h-4 text-neon-blue" />
                               )}
-                              <span className={`font-bold ${session.isBreak ? 'italic' : 'text-gray-900'}`}>
+                              <span className={`font-bold ${session.isBreak ? 'italic' : 'text-white'}`}>
                                 {session.subjectName}
                               </span>
                             </div>
                             <div className="flex items-center gap-4">
-                              <div className="text-[10px] font-bold text-gray-300">
+                              <div className="text-[10px] font-bold text-gray-600">
                                 {format(session.endTime, "h:mm a")}
                               </div>
                               <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
                                 <button 
                                   onClick={() => setEditingSession(session)}
-                                  className="p-1.5 text-gray-300 hover:text-[#800000] transition-all"
+                                  className="p-1.5 text-gray-500 hover:text-neon-blue transition-all"
                                 >
                                   <Edit2 className="w-4 h-4" />
                                 </button>
                                 <button 
                                   onClick={() => deleteSession(session.id)}
-                                  className="p-1.5 text-gray-300 hover:text-red-600 transition-all"
+                                  className="p-1.5 text-gray-500 hover:text-neon-pink transition-all"
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </button>
@@ -959,24 +959,24 @@ export const StudyPlanner: React.FC = () => {
       <AnimatePresence>
         {/* Error Message Modal */}
         {errorMessage && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white rounded-[2rem] p-8 max-w-md w-full shadow-2xl border border-red-100"
+              className="bg-dark-card rounded-[2rem] p-8 max-w-md w-full shadow-2xl border border-neon-pink/20"
             >
-              <div className="flex items-center gap-4 mb-6 text-red-600">
-                <div className="bg-red-50 p-3 rounded-2xl">
+              <div className="flex items-center gap-4 mb-6 text-neon-pink">
+                <div className="bg-dark-bg p-3 rounded-2xl border border-neon-pink/20">
                   <Plus className="w-8 h-8 rotate-45" />
                 </div>
-                <h3 className="text-xl font-black uppercase tracking-tight">Error</h3>
+                <h3 className="text-xl font-black uppercase tracking-tight neon-glow-pink">Error</h3>
               </div>
-              <p className="text-gray-600 font-bold mb-8 leading-relaxed">
+              <p className="text-gray-400 font-bold mb-8 leading-relaxed">
                 {errorMessage}
               </p>
               <button 
                 onClick={() => setErrorMessage(null)}
-                className="w-full py-4 rounded-2xl bg-[#800000] text-white font-black uppercase tracking-widest hover:bg-red-900 transition-all shadow-lg shadow-red-900/20"
+                className="w-full py-4 rounded-2xl bg-neon-pink text-black font-black uppercase tracking-widest hover:bg-neon-pink/80 transition-all shadow-lg shadow-neon-pink/20"
               >
                 Got it
               </button>
@@ -986,31 +986,31 @@ export const StudyPlanner: React.FC = () => {
 
         {/* Reset Confirmation Modal */}
         {showResetConfirm && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white rounded-[2rem] p-8 max-w-md w-full shadow-2xl border border-gray-100"
+              className="bg-dark-card rounded-[2rem] p-8 max-w-md w-full shadow-2xl border border-dark-border"
             >
-              <div className="flex items-center gap-4 mb-6 text-[#800000]">
-                <div className="bg-red-50 p-3 rounded-2xl">
+              <div className="flex items-center gap-4 mb-6 text-neon-pink">
+                <div className="bg-dark-bg p-3 rounded-2xl border border-neon-pink/20">
                   <Trash2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-black uppercase tracking-tight">Reset Plan?</h3>
+                <h3 className="text-xl font-black uppercase tracking-tight neon-glow-pink">Reset Plan?</h3>
               </div>
-              <p className="text-gray-600 font-bold mb-8 leading-relaxed">
+              <p className="text-gray-400 font-bold mb-8 leading-relaxed">
                 Are you sure you want to reset? This will clear all subjects, preferences, and your current schedule. This action cannot be undone.
               </p>
               <div className="flex gap-4">
                 <button 
                   onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 py-4 rounded-2xl bg-gray-100 text-gray-500 font-black uppercase tracking-widest hover:bg-gray-200 transition-all"
+                  className="flex-1 py-4 rounded-2xl bg-dark-bg text-gray-500 font-black uppercase tracking-widest hover:bg-dark-border transition-all border border-dark-border"
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={resetPlan}
-                  className="flex-1 py-4 rounded-2xl bg-[#800000] text-white font-black uppercase tracking-widest hover:bg-red-900 transition-all shadow-lg shadow-red-900/20"
+                  className="flex-1 py-4 rounded-2xl bg-neon-pink text-black font-black uppercase tracking-widest hover:bg-neon-pink/80 transition-all shadow-lg shadow-neon-pink/20"
                 >
                   Reset All
                 </button>
@@ -1020,17 +1020,17 @@ export const StudyPlanner: React.FC = () => {
         )}
 
         {editingSession && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl border border-gray-100"
+              className="bg-dark-card rounded-3xl p-8 w-full max-w-md shadow-2xl border border-dark-border"
             >
-              <h3 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-tight">Edit Session</h3>
+              <h3 className="text-xl font-black text-white mb-6 uppercase tracking-tight neon-glow-blue">Edit Session</h3>
               <div className="space-y-6">
                 <div>
-                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Subject</label>
+                  <label className="text-[10px] font-black text-neon-blue uppercase tracking-widest block mb-2">Subject</label>
                   <select 
                     value={editingSession.subjectId}
                     onChange={(e) => {
@@ -1042,7 +1042,7 @@ export const StudyPlanner: React.FC = () => {
                         isBreak: e.target.value === "break"
                       });
                     }}
-                    className="w-full p-4 rounded-2xl bg-gray-50 border-none font-bold text-gray-900 focus:ring-2 focus:ring-[#800000] transition-all"
+                    className="w-full p-4 rounded-2xl bg-dark-bg border border-dark-border font-bold text-white focus:ring-2 focus:ring-neon-blue/20 transition-all"
                   >
                     {plan?.subjects.map(s => (
                       <option key={s.id} value={s.id}>{s.name}</option>
@@ -1053,7 +1053,7 @@ export const StudyPlanner: React.FC = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Start Time</label>
+                    <label className="text-[10px] font-black text-neon-blue uppercase tracking-widest block mb-2">Start Time</label>
                     <input 
                       type="time"
                       step="900"
@@ -1063,11 +1063,11 @@ export const StudyPlanner: React.FC = () => {
                         const newStart = setMinutes(setHours(editingSession.startTime, h), m);
                         setEditingSession({ ...editingSession, startTime: newStart });
                       }}
-                      className="w-full p-4 rounded-2xl bg-gray-50 border-none font-bold text-gray-900 focus:ring-2 focus:ring-[#800000] transition-all"
+                      className="w-full p-4 rounded-2xl bg-dark-bg border border-dark-border font-bold text-white focus:ring-2 focus:ring-neon-blue/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">End Time</label>
+                    <label className="text-[10px] font-black text-neon-blue uppercase tracking-widest block mb-2">End Time</label>
                     <input 
                       type="time"
                       step="900"
@@ -1077,7 +1077,7 @@ export const StudyPlanner: React.FC = () => {
                         const newEnd = setMinutes(setHours(editingSession.endTime, h), m);
                         setEditingSession({ ...editingSession, endTime: newEnd });
                       }}
-                      className="w-full p-4 rounded-2xl bg-gray-50 border-none font-bold text-gray-900 focus:ring-2 focus:ring-[#800000] transition-all"
+                      className="w-full p-4 rounded-2xl bg-dark-bg border border-dark-border font-bold text-white focus:ring-2 focus:ring-neon-blue/20 transition-all"
                     />
                   </div>
                 </div>
@@ -1085,13 +1085,13 @@ export const StudyPlanner: React.FC = () => {
                 <div className="flex gap-3 pt-4">
                   <button 
                     onClick={() => setEditingSession(null)}
-                    className="flex-1 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-gray-400 bg-gray-50 hover:bg-gray-100 transition-all"
+                    className="flex-1 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-gray-500 bg-dark-bg hover:bg-dark-border transition-all border border-dark-border"
                   >
                     Cancel
                   </button>
                   <button 
                     onClick={() => updateSession(editingSession)}
-                    className="flex-1 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-white bg-[#800000] hover:bg-[#600000] shadow-lg shadow-red-900/20 transition-all"
+                    className="flex-1 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-black bg-neon-blue hover:bg-neon-blue/80 shadow-lg shadow-neon-blue/20 transition-all"
                   >
                     Save Changes
                   </button>

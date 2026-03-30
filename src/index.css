@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+@theme {
+  --color-neon-green: #39FF14;
+  --color-neon-pink: #FF00FF;
+  --color-neon-blue: #00FFFF;
+  --color-neon-yellow: #FFFF00;
+  --color-neon-orange: #FF5F1F;
+  --color-dark-bg: #000000;
+  --color-dark-card: #111111;
+  --color-dark-border: #222222;
+}
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-white;
+  }
+}
+
+.neon-glow-green {
+  text-shadow: 0 0 5px rgba(57, 255, 20, 0.5), 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.neon-glow-pink {
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5), 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.neon-glow-blue {
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.neon-border-green {
+  box-shadow: 0 0 5px rgba(57, 255, 20, 0.2);
+  border-color: rgba(57, 255, 20, 0.5);
+}
+
+.neon-border-pink {
+  box-shadow: 0 0 5px rgba(255, 0, 255, 0.2);
+  border-color: rgba(255, 0, 255, 0.5);
+}
+
+.neon-border-blue {
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+}

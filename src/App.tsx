@@ -94,9 +94,9 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   const priorityColors = {
-    immediate: "bg-[#800000] text-white shadow-sm shadow-[#800000]/20",
-    urgent: "bg-red-600 text-white shadow-sm shadow-red-600/20",
-    "can-wait": "bg-maroon-200 text-[#800000] border border-[#800000]/20"
+    immediate: "bg-neon-pink text-black shadow-sm shadow-neon-pink/20",
+    urgent: "bg-neon-orange text-black shadow-sm shadow-neon-orange/20",
+    "can-wait": "bg-neon-blue text-black border border-neon-blue/20"
   };
 
   return (
@@ -107,21 +107,21 @@ const TaskItem: React.FC<TaskItemProps> = ({
       exit={{ opacity: 0, scale: 0.95 }}
       className="group"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 py-4 px-5 rounded-2xl bg-white shadow-sm border border-gray-100 hover:border-red-200 transition-all mb-3 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 py-4 px-5 rounded-2xl bg-dark-card shadow-sm border border-dark-border hover:border-neon-green transition-all mb-3 relative overflow-hidden">
         {/* Priority Indicator Stripe */}
         <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${
-          task.priority === 'immediate' ? 'bg-[#800000]' : 
-          task.priority === 'urgent' ? 'bg-red-600' : 
-          'bg-red-200'
+          task.priority === 'immediate' ? 'bg-neon-pink' : 
+          task.priority === 'urgent' ? 'bg-neon-orange' : 
+          'bg-neon-blue'
         }`} />
 
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <button 
             onClick={() => toggleTask(task.id)}
-            className="text-gray-300 hover:text-[#800000] transition-colors flex-shrink-0"
+            className="text-gray-700 hover:text-neon-green transition-colors flex-shrink-0"
           >
             {task.completed ? (
-              <CheckCircle2 className="w-7 h-7 text-[#800000]" />
+              <CheckCircle2 className="w-7 h-7 text-neon-green" />
             ) : (
               <Circle className="w-7 h-7" />
             )}
@@ -129,7 +129,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className={`block truncate text-lg font-bold ${task.completed ? "line-through text-gray-300" : "text-gray-900"}`}>
+              <span className={`block truncate text-lg font-bold neon-glow-green ${task.completed ? "line-through text-gray-600" : "text-neon-green"}`}>
                 {task.text}
               </span>
               <div className="flex items-center gap-1">
@@ -146,7 +146,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
             </div>
             
             {task.description && (
-              <p className={`mt-1 text-sm ${task.completed ? "text-gray-300 line-through" : "text-gray-500"} leading-relaxed`}>
+              <p className={`mt-1 text-sm ${task.completed ? "text-gray-600 line-through" : "text-gray-400"} leading-relaxed`}>
                 {task.description}
               </p>
             )}
@@ -154,7 +154,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
             <div className="flex items-center gap-3 mt-2">
               {task.deadline && (
                 <div className={`flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${
-                  timeLeft === 'Overdue' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500'
+                  timeLeft === 'Overdue' ? 'bg-neon-pink/10 text-neon-pink' : 'bg-dark-border text-gray-400'
                 }`}>
                   <Clock className="w-3.5 h-3.5" />
                   {new Date(task.deadline).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
@@ -166,17 +166,17 @@ const TaskItem: React.FC<TaskItemProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 justify-end mt-3 sm:mt-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-50">
+        <div className="flex items-center gap-2 justify-end mt-3 sm:mt-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-dark-border">
           <button 
             onClick={() => setShowInput(!showInput)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-black uppercase tracking-widest text-white bg-[#800000] hover:bg-red-900 rounded-xl transition-all shadow-md shadow-red-900/20 active:scale-95"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-black uppercase tracking-widest text-black bg-neon-green hover:bg-neon-green/80 rounded-xl transition-all shadow-md shadow-neon-green/20 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             Subtask
           </button>
           <button 
             onClick={() => deleteTask(task.id)}
-            className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100"
+            className="p-2.5 text-gray-600 hover:text-neon-pink hover:bg-neon-pink/10 rounded-xl transition-all border border-transparent hover:border-neon-pink/20"
             title="Delete Task"
           >
             <Trash2 className="w-5 h-5" />
@@ -184,7 +184,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
           {task.subtasks.length > 0 && (
             <button 
               onClick={() => toggleExpand(task.id)}
-              className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all"
+              className="p-2.5 text-gray-600 hover:text-neon-blue hover:bg-neon-blue/10 rounded-xl transition-all"
             >
               {task.isExpanded ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
             </button>
@@ -199,33 +199,33 @@ const TaskItem: React.FC<TaskItemProps> = ({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             onSubmit={handleAddSubtask}
-            className="ml-8 mt-1 mb-4 flex flex-col gap-2 overflow-hidden bg-gray-50 p-4 rounded-xl border border-gray-100"
+            className="ml-8 mt-1 mb-4 flex flex-col gap-2 overflow-hidden bg-dark-card p-4 rounded-xl border border-dark-border"
           >
             <input
               autoFocus
               placeholder="Subtask name..."
               value={subtaskText}
               onChange={(e) => setSubtaskText(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#800000]/10 focus:border-[#800000] transition-all"
+              className="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm font-bold text-neon-green focus:outline-none focus:ring-2 focus:ring-neon-green/10 focus:border-neon-green transition-all"
             />
             <textarea
               placeholder="Subtask description (optional)..."
               value={subtaskDescription}
               onChange={(e) => setSubtaskDescription(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#800000]/10 focus:border-[#800000] transition-all resize-none"
+              className="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-xs text-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-green/10 focus:border-neon-green transition-all resize-none"
               rows={2}
             />
             <div className="flex justify-end gap-2">
               <button 
                 type="button"
                 onClick={() => setShowInput(false)}
-                className="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-100 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-500 hover:bg-dark-border transition-colors"
               >
                 Cancel
               </button>
               <button 
                 type="submit"
-                className="bg-[#800000] text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-red-900 transition-colors shadow-sm"
+                className="bg-neon-green text-black px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-neon-green/80 transition-colors shadow-sm"
               >
                 Add Subtask
               </button>
@@ -240,7 +240,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="ml-6 border-l border-gray-100 pl-2 overflow-hidden"
+            className="ml-6 border-l border-dark-border pl-2 overflow-hidden"
           >
             {task.subtasks.map((sub) => (
               <TaskItem
@@ -312,22 +312,22 @@ function CalendarView({ tasks, onDateSelect }: { tasks: TaskType[], onDateSelect
   ];
 
   return (
-    <div className="mt-12 bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100">
+    <div className="mt-12 bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-green/5 border border-dark-border">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
-          <div className="bg-red-50 p-2.5 rounded-2xl">
-            <CalendarIcon className="w-6 h-6 text-[#800000]" />
+          <div className="bg-neon-green/10 p-2.5 rounded-2xl">
+            <CalendarIcon className="w-6 h-6 text-neon-green" />
           </div>
           <div>
-            <h2 className="text-2xl font-black text-gray-900 tracking-tight">{monthNames[month]}</h2>
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{year}</p>
+            <h2 className="text-2xl font-black text-neon-green tracking-tight neon-glow-green">{monthNames[month]}</h2>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{year}</p>
           </div>
         </div>
         <div className="flex gap-3">
-          <button onClick={prevMonth} className="p-3 hover:bg-red-50 text-gray-400 hover:text-[#800000] rounded-2xl transition-all border border-transparent hover:border-red-100">
+          <button onClick={prevMonth} className="p-3 hover:bg-neon-green/10 text-gray-500 hover:text-neon-green rounded-2xl transition-all border border-transparent hover:border-neon-green/20">
             <ChevronRight className="w-6 h-6 rotate-180" />
           </button>
-          <button onClick={nextMonth} className="p-3 hover:bg-red-50 text-gray-400 hover:text-[#800000] rounded-2xl transition-all border border-transparent hover:border-red-100">
+          <button onClick={nextMonth} className="p-3 hover:bg-neon-green/10 text-gray-500 hover:text-neon-green rounded-2xl transition-all border border-transparent hover:border-neon-green/20">
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>
@@ -335,7 +335,7 @@ function CalendarView({ tasks, onDateSelect }: { tasks: TaskType[], onDateSelect
 
       <div className="grid grid-cols-7 gap-3 mb-4">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(d => (
-          <div key={d} className="text-center text-[11px] font-black text-gray-300 uppercase tracking-[0.2em] py-2">
+          <div key={d} className="text-center text-[11px] font-black text-gray-600 uppercase tracking-[0.2em] py-2">
             {d}
           </div>
         ))}
@@ -355,11 +355,11 @@ function CalendarView({ tasks, onDateSelect }: { tasks: TaskType[], onDateSelect
               onClick={() => onDateSelect(dateStr)}
               className={`h-28 p-3 rounded-3xl border transition-all overflow-hidden flex flex-col items-start text-left group ${
                 isToday 
-                  ? "border-red-200 bg-red-50/50 ring-2 ring-red-100 ring-offset-2" 
-                  : "border-gray-50 bg-gray-50/50 hover:bg-white hover:border-red-200 hover:shadow-lg hover:shadow-red-900/5"
+                  ? "border-neon-green/50 bg-neon-green/5 ring-2 ring-neon-green/20 ring-offset-2 ring-offset-dark-bg" 
+                  : "border-dark-border bg-dark-bg/50 hover:bg-dark-card hover:border-neon-green/50 hover:shadow-lg hover:shadow-neon-green/5"
               }`}
             >
-              <span className={`text-sm font-black mb-2 transition-colors ${isToday ? "text-[#800000]" : "text-gray-400 group-hover:text-red-400"}`}>
+              <span className={`text-sm font-black mb-2 transition-colors ${isToday ? "text-neon-green" : "text-gray-600 group-hover:text-neon-green/60"}`}>
                 {day}
               </span>
               <div className="flex-1 w-full overflow-y-auto space-y-1.5 scrollbar-hide">
@@ -367,9 +367,9 @@ function CalendarView({ tasks, onDateSelect }: { tasks: TaskType[], onDateSelect
                   <div 
                     key={idx} 
                     className={`text-[10px] px-2 py-1 rounded-lg truncate font-bold shadow-sm ${
-                      t.priority === 'immediate' ? 'bg-[#800000] text-white' : 
-                      t.priority === 'urgent' ? 'bg-red-600 text-white' : 
-                      'bg-white text-[#800000] border border-red-100'
+                      t.priority === 'immediate' ? 'bg-neon-pink text-black' : 
+                      t.priority === 'urgent' ? 'bg-neon-orange text-black' : 
+                      'bg-dark-border text-neon-blue border border-neon-blue/20'
                     }`}
                     title={t.text}
                   >
@@ -554,21 +554,50 @@ export default function App() {
   }, [tasks]);
 
   return (
-    <div className="min-h-screen bg-[#FDFCFB] text-gray-900 font-sans selection:bg-red-100">
+    <div className="min-h-screen bg-dark-bg text-white font-sans selection:bg-neon-green/20">
       {/* Navigation Menu */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-[#800000] p-1.5 rounded-lg">
-              <CheckCircle2 className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-2 relative">
+            <div className="bg-neon-green p-1.5 rounded-lg shadow-[0_0_10px_rgba(57,255,20,0.5)]">
+              <CheckCircle2 className="w-5 h-5 text-black" />
             </div>
-            <span className="text-xl font-black tracking-tighter text-[#800000]">S.Plan</span>
+            <span className="text-xl font-black tracking-tighter text-neon-green neon-glow-green">S.Plan</span>
+            <motion.div 
+              animate={{ 
+                y: [0, -3, 0],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{ 
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute -top-3 -left-4 text-lg pointer-events-none"
+            >
+              🐻‍❄️
+            </motion.div>
+            <motion.div 
+              animate={{ 
+                y: [0, -2, 0],
+                rotate: [0, -5, 5, 0]
+              }}
+              transition={{ 
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+              className="absolute -bottom-2 -right-4 text-base pointer-events-none"
+            >
+              🐻‍❄️
+            </motion.div>
           </div>
-          <div className="flex bg-gray-50 p-1 rounded-xl border border-gray-100">
+          <div className="flex bg-dark-card p-1 rounded-xl border border-dark-border">
             <button 
               onClick={() => setActiveView("D2D")}
               className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                activeView === 'D2D' ? 'bg-white text-[#800000] shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                activeView === 'D2D' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
               }`}
             >
               <LayoutDashboard className="w-4 h-4" />
@@ -577,7 +606,7 @@ export default function App() {
             <button 
               onClick={() => setActiveView("S.Sche")}
               className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                activeView === 'S.Sche' ? 'bg-white text-[#800000] shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                activeView === 'S.Sche' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
               }`}
             >
               <CalendarDays className="w-4 h-4" />
@@ -604,14 +633,14 @@ export default function App() {
                       <motion.div 
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="bg-[#800000] p-3 rounded-2xl shadow-lg shadow-red-900/20"
+                        className="bg-neon-green p-3 rounded-2xl shadow-lg shadow-neon-green/20"
                       >
-                        <CheckCircle2 className="w-8 h-8 text-white" />
+                        <CheckCircle2 className="w-8 h-8 text-black" />
                       </motion.div>
                       <motion.h1 
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="text-5xl font-black tracking-tighter text-[#800000]"
+                        className="text-5xl font-black tracking-tighter text-neon-green neon-glow-green"
                       >
                         D2D
                       </motion.h1>
@@ -622,7 +651,7 @@ export default function App() {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           onClick={handleInstall}
-                          className="bg-red-50 text-[#800000] px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all flex items-center gap-2 border border-red-100"
+                          className="bg-neon-green/10 text-neon-green px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neon-green/20 transition-all flex items-center gap-2 border border-neon-green/20"
                         >
                           <Plus className="w-3.5 h-3.5" />
                           Install App
@@ -634,9 +663,9 @@ export default function App() {
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-lg text-[10px] font-black text-green-700 uppercase tracking-widest border border-green-100"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-neon-blue/10 rounded-lg text-[10px] font-black text-neon-blue uppercase tracking-widest border border-neon-blue/20"
                           >
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                            <div className="w-1.5 h-1.5 bg-neon-blue rounded-full animate-pulse shadow-[0_0_5px_rgba(0,255,255,0.8)]" />
                             Synced
                           </motion.div>
                         )}
@@ -646,30 +675,30 @@ export default function App() {
 
                   <div className="flex items-center gap-8">
                     {nextDeadlineTask && (
-                      <div className="hidden sm:block text-right border-r border-gray-100 pr-8">
-                        <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Next Deadline</div>
-                        <div className="text-sm font-black text-red-600 truncate max-w-[150px]">{nextDeadlineTask.text}</div>
-                        <div className="text-[11px] font-bold text-gray-500 mt-0.5">
+                      <div className="hidden sm:block text-right border-r border-dark-border pr-8">
+                        <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">Next Deadline</div>
+                        <div className="text-sm font-black text-neon-pink truncate max-w-[150px]">{nextDeadlineTask.text}</div>
+                        <div className="text-[11px] font-bold text-gray-600 mt-0.5">
                           {new Date(nextDeadlineTask.deadline).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                         </div>
                       </div>
                     )}
                     <div className="text-right">
-                      <div className="text-5xl font-black text-gray-900 tracking-tighter leading-none">
-                        {stats.percent}<span className="text-xl font-bold ml-1 text-gray-300">%</span>
+                      <div className="text-5xl font-black text-neon-green tracking-tighter leading-none neon-glow-green">
+                        {stats.percent}<span className="text-xl font-bold ml-1 text-gray-600">%</span>
                       </div>
-                      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mt-2">
+                      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mt-2">
                         Overall Progress
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden p-0.5 border border-gray-50">
+                <div className="h-3 w-full bg-dark-card rounded-full overflow-hidden p-0.5 border border-dark-border">
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${stats.percent}%` }}
-                    className="h-full bg-gradient-to-r from-[#800000] to-red-600 rounded-full shadow-sm"
+                    className="h-full bg-gradient-to-r from-neon-green to-neon-blue rounded-full shadow-[0_0_10px_rgba(57,255,20,0.3)]"
                   />
                 </div>
               </header>
@@ -679,52 +708,52 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 onSubmit={addTask}
-                className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-red-900/5 border border-gray-100 mb-12 space-y-6 relative overflow-hidden"
+                className="bg-dark-card p-8 rounded-[2.5rem] shadow-xl shadow-neon-green/5 border border-dark-border mb-12 space-y-6 relative overflow-hidden"
               >
                 {/* Decorative background element */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -mr-16 -mt-16 opacity-50" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-neon-green/5 rounded-full -mr-16 -mt-16 opacity-50" />
                 
                 <div className="space-y-6 relative">
                   <div className="flex flex-col gap-6">
                     <div className="flex-1">
-                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Name</label>
+                      <label className="block text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Name</label>
                       <input
                         placeholder="What needs to be done?"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-bold text-gray-800"
+                        className="w-full bg-dark-bg border-2 border-transparent rounded-2xl px-6 py-4 text-base focus:bg-dark-card focus:border-neon-green/50 focus:ring-4 focus:ring-neon-green/5 transition-all placeholder:text-gray-700 font-bold text-neon-green"
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Description</label>
+                      <label className="block text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2.5 ml-1">Task Description</label>
                       <textarea
                         placeholder="Add more details about this task..."
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all placeholder:text-gray-300 font-medium text-gray-700 min-h-[100px] resize-none"
+                        className="w-full bg-dark-bg border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-dark-card focus:border-neon-green/50 focus:ring-4 focus:ring-neon-green/5 transition-all placeholder:text-gray-700 font-medium text-gray-400 min-h-[100px] resize-none"
                       />
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Set Deadline</label>
+                      <label className="block text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2.5 ml-1">Set Deadline</label>
                       <div className="relative">
-                        <CalendarIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-red-300" />
+                        <CalendarIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-neon-green/50" />
                         <input
                           type="date"
                           value={deadline}
                           onChange={(e) => setDeadline(e.target.value)}
-                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl pl-14 pr-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none"
+                          className="w-full bg-dark-bg border-2 border-transparent rounded-2xl pl-14 pr-6 py-4 text-sm focus:bg-dark-card focus:border-neon-green/50 focus:ring-4 focus:ring-neon-green/5 transition-all text-neon-green font-bold appearance-none"
                         />
                       </div>
                     </div>
                     <div className="relative">
-                      <label className="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2.5 ml-1">Priority Level</label>
+                      <label className="block text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2.5 ml-1">Priority Level</label>
                       <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value as Priority)}
-                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-white focus:border-red-100 focus:ring-4 focus:ring-red-500/5 transition-all text-gray-700 font-bold appearance-none cursor-pointer"
+                        className="w-full bg-dark-bg border-2 border-transparent rounded-2xl px-6 py-4 text-sm focus:bg-dark-card focus:border-neon-green/50 focus:ring-4 focus:ring-neon-green/5 transition-all text-neon-green font-bold appearance-none cursor-pointer"
                       >
                         <option value="immediate">1. Immediate Response</option>
                         <option value="urgent">2. Urgent</option>
@@ -737,7 +766,7 @@ export default function App() {
                     <button 
                       type="submit"
                       disabled={!text.trim()}
-                      className="w-full bg-[#800000] text-white px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-red-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl shadow-red-900/20 active:scale-[0.98] flex items-center justify-center gap-3"
+                      className="w-full bg-neon-green text-black px-10 py-5 rounded-2xl text-base font-black uppercase tracking-widest hover:bg-neon-green/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl shadow-neon-green/20 active:scale-[0.98] flex items-center justify-center gap-3"
                     >
                       <Plus className="w-6 h-6" />
                       Create Task
@@ -749,21 +778,21 @@ export default function App() {
               {/* Task List */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-2 mb-4">
-                  <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Active Tasks</h3>
-                  <span className="text-[10px] font-bold text-red-700 bg-red-50 px-2 py-1 rounded-md">{tasks.length} Total</span>
+                  <h3 className="text-xs font-black text-gray-500 uppercase tracking-[0.2em]">Active Tasks</h3>
+                  <span className="text-[10px] font-bold text-neon-pink bg-neon-pink/10 px-2 py-1 rounded-md border border-neon-pink/20">{tasks.length} Total</span>
                 </div>
                 <AnimatePresence mode="popLayout">
                   {tasks.length === 0 ? (
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="text-center py-24 bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100"
+                      className="text-center py-24 bg-dark-card rounded-[2.5rem] border-2 border-dashed border-dark-border"
                     >
-                      <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Plus className="w-8 h-8 text-red-200" />
+                      <div className="bg-neon-green/5 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Plus className="w-8 h-8 text-neon-green/20" />
                       </div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">Your list is empty</h4>
-                      <p className="text-gray-400 text-sm font-medium">Add a task above to get started</p>
+                      <h4 className="text-lg font-bold text-neon-green mb-1 neon-glow-green">Your list is empty</h4>
+                      <p className="text-gray-600 text-sm font-medium">Add a task above to get started</p>
                     </motion.div>
                   ) : (
                     tasks.map((task) => (
