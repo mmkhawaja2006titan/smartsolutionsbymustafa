@@ -16,7 +16,7 @@ import { StudyPlanner } from "./StudyPlanner";
 
 // --- Types ---
 type Priority = "immediate" | "urgent" | "can-wait";
-type View = "D2D" | "S.Sche";
+type View = "Menu" | "D2D" | "S.Sche";
 
 interface TaskType {
   id: string;
@@ -403,7 +403,7 @@ export default function App() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBtn, setShowInstallBtn] = useState(false);
   const [isSaved, setIsSaved] = useState(true);
-  const [activeView, setActiveView] = useState<View>("D2D");
+  const [activeView, setActiveView] = useState<View>("Menu");
 
   // Persistence Logic
   useEffect(() => {
@@ -556,69 +556,151 @@ export default function App() {
   return (
     <div className="min-h-screen bg-dark-bg text-white font-sans selection:bg-neon-green/20">
       {/* Navigation Menu */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 relative">
-            <div className="bg-neon-green p-1.5 rounded-lg shadow-[0_0_10px_rgba(57,255,20,0.5)]">
-              <CheckCircle2 className="w-5 h-5 text-black" />
+      {activeView !== "Menu" && (
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border">
+          <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <button 
+              onClick={() => setActiveView("Menu")}
+              className="flex items-center gap-2 relative group"
+            >
+              <div className="bg-neon-green p-1.5 rounded-lg shadow-[0_0_10px_rgba(57,255,20,0.5)] group-hover:scale-110 transition-transform">
+                <CheckCircle2 className="w-5 h-5 text-black" />
+              </div>
+              <span className="text-xl font-black tracking-tighter text-neon-green neon-glow-green">S.Plan</span>
+            </button>
+            <div className="flex bg-dark-card p-1 rounded-xl border border-dark-border">
+              <button 
+                onClick={() => setActiveView("D2D")}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
+                  activeView === 'D2D' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
+                }`}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                D2D
+              </button>
+              <button 
+                onClick={() => setActiveView("S.Sche")}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
+                  activeView === 'S.Sche' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
+                }`}
+              >
+                <CalendarDays className="w-4 h-4" />
+                S.Sche
+              </button>
             </div>
-            <span className="text-xl font-black tracking-tighter text-neon-green neon-glow-green">S.Plan</span>
-            <motion.div 
-              animate={{ 
-                y: [0, -3, 0],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="absolute -top-3 -left-4 text-lg pointer-events-none"
-            >
-              🐻‍❄️
-            </motion.div>
-            <motion.div 
-              animate={{ 
-                y: [0, -2, 0],
-                rotate: [0, -5, 5, 0]
-              }}
-              transition={{ 
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-              className="absolute -bottom-2 -right-4 text-base pointer-events-none"
-            >
-              🐻‍❄️
-            </motion.div>
           </div>
-          <div className="flex bg-dark-card p-1 rounded-xl border border-dark-border">
-            <button 
-              onClick={() => setActiveView("D2D")}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                activeView === 'D2D' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              D2D
-            </button>
-            <button 
-              onClick={() => setActiveView("S.Sche")}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                activeView === 'S.Sche' ? 'bg-dark-bg text-neon-green shadow-sm neon-glow-green' : 'text-gray-600 hover:text-gray-400'
-              }`}
-            >
-              <CalendarDays className="w-4 h-4" />
-              S.Sche
-            </button>
-          </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       <div className="max-w-4xl mx-auto px-6 py-24 md:py-32">
         <AnimatePresence mode="wait">
-          {activeView === "D2D" ? (
+          {activeView === "Menu" ? (
+            <motion.div
+              key="menu"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              className="min-h-[70vh] flex flex-col items-center justify-center relative"
+            >
+              {/* Big Polar Bears */}
+              <motion.div
+                animate={{ 
+                  y: [0, -20, 0],
+                  rotate: [0, 5, -5, 0],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-20 -left-10 text-8xl md:text-9xl opacity-20 pointer-events-none select-none"
+              >
+                🐻‍❄️
+              </motion.div>
+              <motion.div
+                animate={{ 
+                  y: [0, 15, 0],
+                  rotate: [0, -8, 8, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-20 -right-10 text-8xl md:text-9xl opacity-20 pointer-events-none select-none"
+              >
+                🐻‍❄️
+              </motion.div>
+
+              <div className="text-center mb-16 space-y-6">
+                <motion.div
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-block bg-neon-green p-6 rounded-[2.5rem] shadow-[0_0_50px_rgba(57,255,20,0.3)] mb-4"
+                >
+                  <CheckCircle2 className="w-20 h-20 text-black" />
+                </motion.div>
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h1 className="text-7xl md:text-8xl font-black tracking-tighter text-neon-green neon-glow-green uppercase">
+                    S.Plan
+                  </h1>
+                  <p className="text-sm font-black text-gray-500 uppercase tracking-[0.5em] mt-2">
+                    Ultimate Productivity Suite
+                  </p>
+                </motion.div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl">
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveView("D2D")}
+                  className="group relative bg-dark-card border-2 border-dark-border p-10 rounded-[3rem] text-left transition-all hover:border-neon-green hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
+                    <LayoutDashboard className="w-32 h-32 text-neon-green" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="bg-neon-green/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border border-neon-green/20">
+                      <LayoutDashboard className="w-8 h-8 text-neon-green" />
+                    </div>
+                    <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">D2D</h2>
+                    <p className="text-gray-500 font-medium text-sm leading-relaxed">
+                      Day-to-Day task management with recursive subtasks and priority tracking.
+                    </p>
+                  </div>
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveView("S.Sche")}
+                  className="group relative bg-dark-card border-2 border-dark-border p-10 rounded-[3rem] text-left transition-all hover:border-neon-blue hover:shadow-[0_0_30px_rgba(0,243,255,0.1)] overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
+                    <CalendarDays className="w-32 h-32 text-neon-blue" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="bg-neon-blue/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border border-neon-blue/20">
+                      <CalendarDays className="w-8 h-8 text-neon-blue" />
+                    </div>
+                    <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">S.Sche</h2>
+                    <p className="text-gray-500 font-medium text-sm leading-relaxed">
+                      Advanced Study Scheduler with AI-driven time allocation and break management.
+                    </p>
+                  </div>
+                </motion.button>
+              </div>
+
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="mt-16 text-[10px] font-black text-gray-700 uppercase tracking-[0.3em]"
+              >
+                "If you can plan it, you can make it"
+              </motion.div>
+            </motion.div>
+          ) : activeView === "D2D" ? (
             <motion.div 
               key="d2d"
               initial={{ opacity: 0, x: -20 }}
